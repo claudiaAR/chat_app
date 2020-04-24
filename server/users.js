@@ -1,13 +1,13 @@
 const users = []
 
-const addUser = ({ id, name, room}) => {
+const addUser = ({ id, name, room }) => {
     // Javascript Mastery = javascriptmastery
     //This is to know what string data we are using 
     name = name.trim().toLowerCase()
     room = room.trim().toLowerCase()
     
     // Checking if the username is free.
-    const existingUser = user.find((user) => user.room === room && user.name === name )
+    const existingUser = users.find((user) => user.room === room && user.name === name )
     //if the user try to log in with exicting name this will be trown out
     if (existingUser) {
      return { error: 'Username is taken' }

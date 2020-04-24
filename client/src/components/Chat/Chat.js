@@ -8,6 +8,8 @@ let socket;
 const Chat = ({ location }) => {
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
+    const [message, setMessage] = useState('')
+    const [messages, setMessages] = useState([])
     const ENDPOINT = 'localhost:5000'
 
     useEffect(() => {
@@ -29,8 +31,44 @@ const Chat = ({ location }) => {
         }
     }, [ENDPOINT, location.search])
 
+    //welcoming message from server index.js 'join'
+    useEffect(() => {
+        socket.on('message', (message) => {
+            //this is adding all messages to our messages array
+            setMessages([...messages, message])
+        })
+
+    }, [messages])
+
+
+    // function for sending messages
+    const sendMessage = (event) => {
+        event.preventDefault()
+
+        if(message) {
+            socket.emit('sendMessage', message, () => setMessage(''))
+            
+        }
+    }
+
+
+    console.log( message, messages)
+
+
     return(
-        <h1>Chat</h1>
+        <div className="outerContanier">
+            <div className="contanier">
+            <InfoBar />
+
+
+                {/* <input 
+                    value={message} 
+                     onChange={(event) => setMessage(event.target.value)}
+                     onKeyPress={(event) => event.key === 'Enter' ? sendMessage(event) : null}
+                 /> */}
+            </div>
+        </div>
+        
     )
 }
 export default Chat
