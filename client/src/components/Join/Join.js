@@ -1,6 +1,6 @@
 import React, { useState }from 'react'
 import { Link } from 'react-router-dom'
-i
+import './Join.css'
 
 //the client will first se the Join-component
 const Join = () => {
