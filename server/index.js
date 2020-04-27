@@ -4,7 +4,7 @@ const http = require('http')
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
 
-
+//The server is running on process.env.PORT or else port 5000
 const PORT = process.env.PORT || 5000
 
 const router = require('./router')
@@ -13,7 +13,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-//
+//socket is a connection who will run when we have a connection from our client instance
 io.on('connection', (socket) => {
    
     //the function is a callback of the instance 'join'
@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
         //this callback is connecting with the frontend
         callback()
     })
-
+    //disconnect will run when we have a disconnect from our client instance
     socket.on('disconnect', () => {
         console.log('User had left!!!!')
 })

@@ -1,9 +1,10 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Join.css'
 
-//the client will first se the Join-component
+//The client will first se the Join-component when they visit our App on url path='/'
 const Join = () => {
+    //initial value: empty-string
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
 
