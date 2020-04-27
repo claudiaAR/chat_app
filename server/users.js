@@ -8,10 +8,13 @@ const addUser = ({ id, name, room }) => {
     
     // Checking if the username is free.
     const existingUser = users.find((user) => user.room === room && user.name === name )
+
+    // Validation of name and room inputs.
+    if(!name || !room) return { error: 'Username and room are required.' };
+
     //if the user try to log in with exicting name this will be trown out
-    if (existingUser) {
-     return { error: 'Username is taken' }
-    }
+    if (existingUser) return { error: 'Username is taken' }
+    
     //if the user name dont have any conflicts the new user will be created in the user array
     const user = { id, name, room }
 
@@ -33,8 +36,6 @@ const removeUser = (id) => {
 
 //if user excist it will be returned in the getUser variable
 const getUser = (id) => users.find((user) => user.id === id)
-
-
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room) 
 
