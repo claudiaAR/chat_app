@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import InfoBar from '../InfoBar/InfoBar'
 import Input from '../Input/Input'
 import Messages from '../Messages/Messages'
-// import TextContainer from '../TextContainer/TextContainer' 
+import TextContainer from '../TextContainer/TextContainer' 
 //import styled from 'styled-components'
 
 // const OuterContainer = styled.outerContainer`
