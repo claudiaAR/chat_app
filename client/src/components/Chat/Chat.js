@@ -21,18 +21,18 @@ const Chat = ({ location }) => {
 
     useEffect(() => {
         const { name, room } = queryString.parse(location.search)
-        
+
         socket = io(ENDPOINT)
 
         setName(name)
         setRoom(room)
 
         socket.emit('join', { name, room }, (error) => {
-            if(error) {
-              alert(error);
+            if (error) {
+                alert(error);
             }
-          });
-        }, [ENDPOINT, location.search]);
+        });
+    }, [ENDPOINT, location.search]);
 
     //welcoming message from server index.js 'join'
     useEffect(() => {
@@ -40,10 +40,10 @@ const Chat = ({ location }) => {
             //this is adding all messages to our messages array
             setMessages([...messages, message])
         })
-        
+
         socket.on("roomData", ({ users }) => {
             setUsers(users);
-          });
+        });
     }, [messages])
 
 
@@ -51,9 +51,9 @@ const Chat = ({ location }) => {
     const sendMessage = (event) => {
         event.preventDefault()
 
-        if(message) {
+        if (message) {
             socket.emit('sendMessage', message, () => setMessage(''))
-            
+
         }
     }
 
@@ -61,16 +61,16 @@ const Chat = ({ location }) => {
     console.log(message, messages)
 
     // TASK: display the people who is online right now
-    return(
+    return (
         <div className="outerContainer">
             <div className="container">
-            <InfoBar room={room}/>
-            <Messages messages={messages} name={name}/>
-            <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+                <InfoBar room={room} />
+                <Messages messages={messages} name={name} />
+                <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
-            <TextContainer users={users}/>
+            <TextContainer users={users} />
         </div>
-        
+
     )
 }
 export default Chat
