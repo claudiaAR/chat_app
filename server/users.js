@@ -1,7 +1,8 @@
+//This variable should be in a JSON file
 const users = []
 
 const addUser = ({ id, name, room }) => {
-    // Javascript Mastery = javascriptmastery
+    // Leonardo Dicaprio = oscar_winner
     //This is to know what string data we are using 
     name = name.trim().toLowerCase()
     room = room.trim().toLowerCase()
@@ -16,7 +17,8 @@ const addUser = ({ id, name, room }) => {
     const user = { id, name, room }
 
     users.push(user)
-
+    // socket.json.send.users.push(user)
+    console.log(user)
     return { user }
 }
 
@@ -24,7 +26,6 @@ const addUser = ({ id, name, room }) => {
 const removeUser = (id) => {
     // Finding the specific id of user.
     const index = users.findIndex((user) => user.id === id)
-
     //checking if user excist if so remove from user array
     if (index !== -1) {
         return users.splice(index, 1)[0]
