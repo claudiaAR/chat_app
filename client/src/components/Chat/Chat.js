@@ -25,6 +25,7 @@ const Chat = ({ location }) => {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
+    const [allRooms, setAllRooms] = useState([])
     const ENDPOINT = 'localhost:5000'
     
      //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
@@ -56,6 +57,9 @@ const Chat = ({ location }) => {
         socket.on("roomData", ({ users }) => {
             setUsers(users);
           });
+        socket.on("allRooms", ({allRooms}) => {
+              setAllRooms(allRooms)
+          })
     }, [messages])
 
 
