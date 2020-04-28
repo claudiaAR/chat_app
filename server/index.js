@@ -28,6 +28,10 @@ io.on('connection', (socket) => {
         // Validation, if  name is taken or name and room are missing
         if(error) return callback(error)
 
+        socket.join(user.room, () => {
+            getAllRooms()
+        })
+
         socket.join(user.room)
 
         //Welcoming message from chat to new user
@@ -60,6 +64,10 @@ io.on('connection', (socket) => {
         }
       })
 })
+
+function getAllRooms() {
+    console.log(io.sockets.socket)
+}
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
