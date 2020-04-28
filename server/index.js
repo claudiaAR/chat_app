@@ -28,22 +28,44 @@ io.on('connection', (socket) => {
         // Validation, if  name is taken or name and room are missing
         if(error) return callback(error)
 
-        socket.join(user.room, () => {
-            getAllRooms()
-        })
-
-        socket.join(user.room)
-
-        //Welcoming message from chat to new user
-        socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` })
+        socket.join(user.room, () =>{
+             //Welcoming message from chat to new user
+        socket.emit(
+            'message', 
+            { 
+                user: 'admin', 
+                text: `${user.name}, welcome to the room ${user.room}` 
+            }
+        )
         
         //New user in the room message, all the other users in the room will get the message
-        socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!`})
+        socket.broadcast.to(user.room).emit(
+            'message', 
+            { 
+                user: 'admin', 
+                text: `${user.name}, has joined!`
+            }   
+        )
 
         //emits all the users in specific room
-        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+        io.to(user.room).emit(
+            'usersInRoom', 
+            { 
+                room: user.room, 
+                users: getUsersInRoom(user.room) 
+            }
+        );
 
-        callback()
+        //Broadcast allRooms to all clients
+        //the property allRooms must have the samme name as the client side socket.on
+        // socket.on("allRooms", ({ allRooms }) => { setAllRooms(allRooms) })
+        io.emit('allRooms', 
+            {
+                allRooms: getAllRooms()
+            }
+            )
+            callback()
+        }) 
     })
 
     socket.on('sendMessage', (message, callback) => {
@@ -59,14 +81,36 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
     
         if(user) {
-          io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
-          io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+          io.to(user.room).emit(
+              'message', 
+                { 
+                  user: 'Admin', 
+                  text: `${user.name} has left.` 
+                }
+            );
+          io.to(user.room).emit(
+              'roomData',  
+                { 
+                  room: user.room, 
+                  users: getUsersInRoom(user.room)
+                }
+            );
         }
+        socket.on('disconnect', () => {
+            //Broadcast all rooms to all clients
+            io.emit('roomsWriten', getAllRooms)
+        })
       })
 })
 
 function getAllRooms() {
-    console.log(io.sockets.socket)
+   const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
+   const socketsIds = Object.keys(io.sockets.sockets)
+   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
+   
+   console.log(rooms)
+   return rooms
+    // console.log(io.sockets.socket)
 }
 
 

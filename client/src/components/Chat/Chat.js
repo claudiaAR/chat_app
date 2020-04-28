@@ -55,11 +55,13 @@ const Chat = ({ location }) => {
             setMessages([...messages, message])
         })
         
-        socket.on("roomData", ({ users }) => {
+        socket.on("usersInRoom", ({ users }) => {
             setUsers(users);
           });
           
-        socket.on("allRooms", ({allRooms}) => {
+        //connects with emit on server side 
+        // io.emit('allRooms',{ allRooms: getAllRooms() })
+        socket.on("allRooms", ({ allRooms }) => {
               setAllRooms(allRooms)
           })
     }, [messages])
@@ -75,6 +77,10 @@ const Chat = ({ location }) => {
         }
     }
 
+    // const onRoomsReceived =(rooms) => {
+    //     console.log(rooms)
+    // }
+
 
     console.log(message, messages)
 
@@ -86,7 +92,7 @@ const Chat = ({ location }) => {
             <Messages messages={messages} name={name}/>
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
-            <SideBar users={users}/>
+            <SideBar users={users} room={room} allRooms={allRooms}/>
         </div>
         
     )
