@@ -1,4 +1,4 @@
-// This file initiate our application built with react. 
+//This file initiate our application built with react. 
 import React from 'react'
 import ReactDOM from 'react-dom'
 
