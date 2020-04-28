@@ -57,7 +57,7 @@ const Chat = ({ location }) => {
             setUsers(users);
         });
 
-        socket.on()
+        
     }, [messages])
 
 
