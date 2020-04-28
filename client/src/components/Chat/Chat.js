@@ -57,6 +57,7 @@ const Chat = ({ location }) => {
         socket.on("roomData", ({ users }) => {
             setUsers(users);
           });
+          
         socket.on("allRooms", ({allRooms}) => {
               setAllRooms(allRooms)
           })

@@ -20,7 +20,7 @@ app.use(router)
 
 //socket is a connection who will run when we have a connection from our client instance
 io.on('connection', (socket) => {
-   
+//  socket.leaveAll()  
     //Function of the instance 'join', has a callback  with a error handling. 
     socket.on('join', ({ name, room }, callback) => {
         const { error, user } = addUser({ id: socket.id, name, room})
@@ -28,7 +28,9 @@ io.on('connection', (socket) => {
         // Validation, if  name is taken or name and room are missing
         if(error) return callback(error)
 
-        socket.join(user.room)
+        socket.join(user.room, () => {
+        getAllRooms()
+        })
 
         //Welcoming message from chat to new user
         socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` })
@@ -60,6 +62,11 @@ io.on('connection', (socket) => {
         }
       })
 })
+
+function getAllRooms() {
+  // Loop through all rooms and filter out crap
+  console.log(io.sockets.sockets) 
+}
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
