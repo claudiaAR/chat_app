@@ -2,10 +2,12 @@ import React from 'react';
 
 // import onlineIcon from '../../icons/onlineIcon.png';
 
-import './TextContainer.css';
+import './SideBar.css';
 
-const TextContainer = ({ users }) => (
-  <div className="textContainer">
+const SideBar = ({ users, room }) => (
+  <div className="sidebarContainer">
+    <h1>Open rooms:</h1>
+    <h1>Private rooms:</h1>
     {
       users
         ? (
@@ -18,13 +20,13 @@ const TextContainer = ({ users }) => (
                     {name}
                   </div>
                 ))}
-              </h2>
+             </h2>
             </div>
           </div>
         )
-        : null
-    }
-    </div>
+      : null
+    } 
+  </div>
 );
 
-export default TextContainer;
+export default SideBar;
