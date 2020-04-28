@@ -27,6 +27,7 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
     const [allRooms, setAllRooms] = useState([])
+    // const [allClosedRooms, setAllClosedRooms] = useState([])
     const ENDPOINT = 'localhost:5000'
     
      //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
@@ -59,11 +60,17 @@ const Chat = ({ location }) => {
             setUsers(users);
           });
           
-        //connects with emit on server side 
+        //connects with emit on server side (index.js)
         // io.emit('allRooms',{ allRooms: getAllRooms() })
         socket.on("allRooms", ({ allRooms }) => {
               setAllRooms(allRooms)
           })
+        
+        // socket.on("allClosedRooms", ({ allClosedRooms }) => {
+        //     setAllClosedRooms(allClosedRooms)
+        // })
+
+          
     }, [messages])
 
 
@@ -87,12 +94,12 @@ const Chat = ({ location }) => {
     // TASK: display the people who is online right now
     return(
         <div className="outerContainer">
+            <SideBar users={users} room={room} allRooms={allRooms} />  {/* allClosedRooms={allClosedRooms} */}
             <div className="container">
             <InfoBar room={room}/>
             <Messages messages={messages} name={name}/>
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
-            <SideBar users={users} room={room} allRooms={allRooms}/>
         </div>
         
     )

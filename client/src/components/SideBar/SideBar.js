@@ -1,14 +1,15 @@
 import React from 'react';
 import './SideBar.css';
 
-
-const SideBar = ({ users, room, allRooms }) => {
+{/*  allClosedRooms  */}
+const SideBar = ({ users, room, allRooms }) => { 
 
  
   return (
   
   <div className="sidebarContainer">
 
+  <div>
     <h1>Open rooms:</h1>
     {
       room
@@ -24,9 +25,28 @@ const SideBar = ({ users, room, allRooms }) => {
           </div>
         </div>
       )
-      : null }
+      : null 
+    }
+    </div>
 
     <h1>Private rooms:</h1>
+     {/*{
+      allClosedRooms
+      ? (
+        <div>
+          <div className="activeContainer">
+            <div>
+              {allClosedRooms.map(({ allClosedRooms }) => (
+                <p key={allClosedRooms} className="activeItem">
+                {allClosedRooms}
+              </p>))}
+            </div>
+          </div>
+        </div>
+      )
+      : null } */}
+
+
     {
       users
       ? (

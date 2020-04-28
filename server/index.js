@@ -63,7 +63,14 @@ io.on('connection', (socket) => {
             {
                 allRooms: getAllRooms()
             }
-            )
+        )
+
+    //     io.emit('allClosedRooms', 
+    //     {
+    //         allClosedRooms: getAllClosedRooms()
+    //     }
+    // )
+            
             callback()
         }) 
     })
@@ -112,6 +119,10 @@ function getAllRooms() {
    return rooms
     // console.log(io.sockets.socket)
 }
+
+// function getAllClosedRooms(){
+//     console.log(getAllClosedRooms())
+// }
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
