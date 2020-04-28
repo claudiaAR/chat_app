@@ -1,8 +1,10 @@
+//This file are handling all helper functions for our users
+
 const users = []
 
+// Add user to the users array.
 const addUser = ({ id, name, room }) => {
-    // Javascript Mastery = javascriptmastery
-    //This is to know what string data we are using 
+    // This makes the string all lowercase and no whitespaces
     name = name.trim().toLowerCase()
     room = room.trim().toLowerCase()
     
@@ -12,10 +14,10 @@ const addUser = ({ id, name, room }) => {
     // Validation of name and room inputs.
     if(!name || !room) return { error: 'Username and room are required.' };
 
-    //if the user try to log in with exicting name this will be trown out
+    // If the user try to log in with exicting name this will be trown out
     if (existingUser) return { error: 'Username is taken' }
     
-    //if the user name dont have any conflicts the new user will be created in the user array
+    // If the user name dont have any conflicts the new user will be created in the user array
     const user = { id, name, room }
 
     users.push(user)
@@ -23,12 +25,12 @@ const addUser = ({ id, name, room }) => {
     return { user }
 }
 
-
+// Remove user from the users array.
 const removeUser = (id) => {
-    // Finding the specific id of user.
+    // Finding the specific id of user in array.
     const index = users.findIndex((user) => user.id === id)
 
-    //checking if user excist if so remove from user array
+    // If the user exist, remove the user from array.
     if (index !== -1) {
         return users.splice(index, 1)[0]
     }

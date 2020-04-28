@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Join.css'
 
-//the client will first se the Join-component
+//The client will first se the Join-component when they visit our App on url path='/'
+//If the user click the button, it will route to path='/chat' component={Chat}
+//if name and room dont have a value, the routing will not take place
 const Join = () => {
+    //useState hooks explained:
+    //variable [stateful value, function to set/update the value] = useState(the initial value)
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
 

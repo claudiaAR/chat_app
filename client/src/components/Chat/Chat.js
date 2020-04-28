@@ -9,8 +9,16 @@ import TextContainer from '../TextContainer/TextContainer'
 
 import './Chat.css'
 
-let socket;
 
+//useEffect is for lifecycle methods for functions inside a component. 
+//useEffect hooks explained: 
+//Needs to have a arrow function. This function will run when the component renders (it can renders multiple times).
+//Lifecycle: For example, UseEffect change the DOM on every click on button in the component.
+
+//Empty variable that connects to the server.
+//When we have a connection the ENDPOINT will change.
+let socket;
+    
 const Chat = ({ location }) => {
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
@@ -18,7 +26,8 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
     const ENDPOINT = 'localhost:5000'
-
+    
+     //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
     useEffect(() => {
         const { name, room } = queryString.parse(location.search)
 
@@ -27,13 +36,16 @@ const Chat = ({ location }) => {
         setName(name)
         setRoom(room)
 
+        // Validation, if  name is taken or name and room are missing
         socket.emit('join', { name, room }, (error) => {
             if (error) {
                 alert(error);
             }
-        });
-    }, [ENDPOINT, location.search]);
+          });
 
+          //This makes the URL change only when name and room values changes. 
+        }, [ENDPOINT, location.search]);
+    
     //welcoming message from server index.js 'join'
     useEffect(() => {
         socket.on('message', (message) => {
@@ -49,7 +61,7 @@ const Chat = ({ location }) => {
     }, [messages])
 
 
-    // function for sending messages
+    //Function for sending messages, 'sendMessage' is a string that the server will recognise.
     const sendMessage = (event) => {
         event.preventDefault()
 
