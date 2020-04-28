@@ -1,1 +1,17 @@
-[]
+[
+    { 
+        "id": "RJFB0pTujYQ6zGw7AAAA",
+        "name": "cla", 
+        "room": "hej"
+    },
+    { 
+        "id": "AqYslr_aBSuAkgKAAAAB",
+        "name": "cla",
+        "room": "hej" 
+    },
+    { 
+        "id": "aBeRgkbGgbGSotgFAAAC",
+        "name": "cla",
+        "room": "room" 
+    }
+]
