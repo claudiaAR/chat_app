@@ -8,12 +8,13 @@ import Chat from './components/Chat/Chat'
 //URL: '/' displays the Join component (First thing the client will see on the website, the client will insert data)
 //URL: '/chat' displays the Chat component (When we have the data from the client, we will render the chat component)
 const App = () => (
-/* här kan man lägga in en component: sida-bar som visar lista på rum som följer med alla sidor <sidebar> */
+
     <Router>
         <Route path='/' exact component={Join} />
         <Route path='/chat' component={Chat} />
     </Router>
-/* och stänga component: sida-bar här </sidebar> */
+    
+
 )
 
 export default App
