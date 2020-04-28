@@ -5,7 +5,7 @@ const cors = require('cors')
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
 
-//The server is running on process.env.PORT or else port 5000
+
 const PORT = process.env.PORT || 5000
 
 const router = require('./router')
@@ -14,23 +14,26 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-//socket is a connection who will run when we have a connection from our client instance
+
 app.use(cors())
 app.use(router)
 
+//socket is a connection who will run when we have a connection from our client instance
 io.on('connection', (socket) => {
    
-    //the function is a callback of the instance 'join'
+    //Function of the instance 'join', has a callback  with a error handling. 
     socket.on('join', ({ name, room }, callback) => {
         const { error, user } = addUser({ id: socket.id, name, room})
-
+        
+        // Validation, if  name is taken or name and room are missing
         if(error) return callback(error)
 
         socket.join(user.room)
 
-        //welcoming message from chat to new user
+        //Welcoming message from chat to new user
         socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` })
-        //all in the room see the new user
+        
+        //New user in the room message, all the other users in the room will get the message
         socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!`})
 
         //emits all the users in specific room
@@ -46,9 +49,8 @@ io.on('connection', (socket) => {
         //this callback is connecting with the frontend
         callback()
     })
-    //disconnect will run when we have a disconnect from our client instance
 
-    // if user leaves room
+    //disconnect will run if user leaves room /if we have a disconnect from the client side
     socket.on('disconnect', () => {
         const user = removeUser(socket.id);
     

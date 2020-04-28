@@ -7,7 +7,7 @@ import './Join.css'
 //if name and room dont have a value, the routing will not take place
 const Join = () => {
     //useState hooks explained:
-    //variable [stateful value, function to update it] = useState(sthe initial value)
+    //variable [stateful value, function to set/update the value] = useState(the initial value)
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
 
