@@ -2,7 +2,8 @@ import React from 'react';
 import './SideBar.css';
 
 {/*  allClosedRooms  */}
-const SideBar = ({ users, rooms, allRooms }) => { 
+const SideBar = ({ users, allRooms }) => { 
+
 
  
   return (
@@ -17,10 +18,10 @@ const SideBar = ({ users, rooms, allRooms }) => {
         <h4>Open rooms:</h4>
           <div className="activeContainer">
             <div>
-              {allRooms.map(({ room }) => (
+              {allRooms.map(({ rooms }) => (
               //  <p key={room} className="activeItem">
                // {room} 
-                <p key={allRooms} className="activeItem">
+                <p key={rooms} className="activeItem">
                 {allRooms} 
               </p>))}
             </div>

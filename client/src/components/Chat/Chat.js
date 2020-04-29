@@ -69,8 +69,7 @@ const Chat = ({ location }) => {
         // socket.on("allClosedRooms", ({ allClosedRooms }) => {
         //     setAllClosedRooms(allClosedRooms)
         // })
-
-          
+ 
     }, [messages])
 
 
