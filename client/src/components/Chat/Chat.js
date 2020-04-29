@@ -23,10 +23,12 @@ let socket;
 const Chat = ({ location }) => {
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
+    const [password, setPassword] = useState('')
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
-    const [allRooms, setAllRooms] = useState([])
+    const [allOpenRooms, setAllOpenRooms] = useState([])
+    const [allClosedRooms, setAllClosedRooms] = useState([])
     const ENDPOINT = 'localhost:5000'
     
      //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
@@ -37,11 +39,12 @@ const Chat = ({ location }) => {
 
         setName(name)
         setRoom(room)
+        // setPassword(password)
 
         // Validation, if  name is taken or name and room are missing
-        socket.emit('join', { name, room }, (error) => {
-            if (error) {
-                alert(error);
+        socket.emit('join', { name, room, password }, (error) => {
+            if(error) {
+              alert(error);
             }
           });
 
@@ -57,13 +60,19 @@ const Chat = ({ location }) => {
         
         socket.on("usersInRoom", ({ users }) => {
             setUsers(users);
-          });
+            
+          });  
           
-        //connects with emit on server side 
+        //connects with emit on server side (index.js)
         // io.emit('allRooms',{ allRooms: getAllRooms() })
-        socket.on("allRooms", ({ allRooms }) => {
-              setAllRooms(allRooms)
+        socket.on("allOpenRooms", ({ allOpenRooms }) => {
+              setAllOpenRooms(allOpenRooms)
           })
+        
+        socket.on("allClosedRooms", ({ allClosedRooms }) => {
+            setAllClosedRooms(allClosedRooms)
+        })
+ 
     }, [messages])
 
 
@@ -81,20 +90,21 @@ const Chat = ({ location }) => {
     //     console.log(rooms)
     // }
 
+    console.log(users)
 
-    console.log(message, messages)
-
-    // TASK: display the people who is online right now
-    return (
+    
+    return(
+   
         <div className="outerContainer">
+        <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
             <div className="container">
                 <InfoBar room={room} />
                 <Messages messages={messages} name={name} />
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
-            <SideBar users={users} room={room} allRooms={allRooms}/>
         </div>
-
+      
+        
     )
 }
 export default Chat

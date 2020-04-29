@@ -1,21 +1,51 @@
 .sidebarContainer {
+    /* display: flex;
+    flex-direction: column;
+    margin-left: 100px; */
     display: flex;
     flex-direction: column;
-    margin-left: 100px;
     color: white;
+    padding: 1rem; 
+    width: 20rem;
     height: 60%;
+    margin-left: 10px;
+    /* width: 20rem;
     justify-content: space-between;
+    background: rgb(21, 21, 22);
+   */
+  }
+
+  h4{
+    background: #5c34fa;
+    padding: 1rem;
+    position: relative;
+  }
+
+  h4::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #5c34fa transparent transparent transparent;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
   }
   
   .activeContainer {
     display: flex;
-    align-items: center;
-    margin-bottom: 50%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -1rem;
+    
   }
   
   .activeItem {
+   
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
   
   .activeContainer img {
