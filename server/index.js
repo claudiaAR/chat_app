@@ -57,13 +57,21 @@ io.on('connection', (socket) => {
         );
 
         //Broadcast allRooms to all clients
-        //the property allRooms must have the samme name as the client side socket.on
+        //the property allRooms must have the samme name as the client side socket.on (chat.js)
         // socket.on("allRooms", ({ allRooms }) => { setAllRooms(allRooms) })
         io.emit('allRooms', 
             {
+                // room: user.rooms,
                 allRooms: getAllRooms()
             }
-            )
+        )
+
+    //     io.emit('allClosedRooms', 
+    //     {
+    //         allClosedRooms: getAllClosedRooms()
+    //     }
+    // )
+            
             callback()
         }) 
     })
@@ -112,6 +120,10 @@ function getAllRooms() {
    return rooms
     // console.log(io.sockets.socket)
 }
+
+// function getAllClosedRooms(){
+//     console.log(getAllClosedRooms())
+// }
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
