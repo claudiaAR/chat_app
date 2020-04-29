@@ -1,30 +1,26 @@
 import React from 'react';
 import './SideBar.css';
 
-{/*  allClosedRooms  */}
-const SideBar = ({ users, allRooms }) => { 
 
+const SideBar = ({ users, allOpenRooms, allClosedRooms }) => { 
 
- 
   return (
   
   <div className="sidebarContainer">
-
-
     {
-      allRooms
+      allOpenRooms
       ? (
         <div>
         <h4>Open rooms:</h4>
           <div className="activeContainer">
-            <div>
-              {allRooms.map(({ rooms }) => (
+            <h5>
+              {allOpenRooms.map(( room , index) => (
               //  <p key={room} className="activeItem">
                // {room} 
-                <p key={rooms} className="activeItem">
-                {allRooms} 
+                <p key={index} className="activeItem">
+                {room} 
               </p>))}
-            </div>
+            </h5>
           </div>
         </div>
       )
@@ -34,21 +30,21 @@ const SideBar = ({ users, allRooms }) => {
 
 
     <h4>Private rooms:</h4>
-     {/*{
+     {
       allClosedRooms
       ? (
         <div>
           <div className="activeContainer">
             <div>
-              {allClosedRooms.map(({ allClosedRooms }) => (
-                <p key={allClosedRooms} className="activeItem">
-                {allClosedRooms}
+              {allClosedRooms.map(( room , index) => (
+                <p key={index} className="activeItem">
+                {room}
               </p>))}
             </div>
           </div>
         </div>
       )
-      : null } */}
+      : null }
 
    
     {
@@ -58,8 +54,8 @@ const SideBar = ({ users, allRooms }) => {
           <div className="activeContainer">
            <h4>People in room:</h4>
             <h5>
-              {users.map(({ name }) => (
-              <div key={name} className="activeItem">
+              {users.map(( { name } , index) => (
+              <div key={index} className="activeItem">
                 {name}
               </div>))}
             </h5>

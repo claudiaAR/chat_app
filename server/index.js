@@ -22,8 +22,8 @@ app.use(router)
 io.on('connection', (socket) => {
    
     //Function of the instance 'join', has a callback  with a error handling. 
-    socket.on('join', ({ name, room }, callback) => {
-        const { error, user } = addUser({ id: socket.id, name, room})
+    socket.on('join', ({ name, room, password }, callback) => {
+        const { error, user } = addUser({ id: socket.id, name, room, password})
         
         // Validation, if  name is taken or name and room are missing
         if(error) return callback(error)
@@ -59,18 +59,18 @@ io.on('connection', (socket) => {
         //Broadcast allRooms to all clients
         //the property allRooms must have the samme name as the client side socket.on (chat.js)
         // socket.on("allRooms", ({ allRooms }) => { setAllRooms(allRooms) })
-        io.emit('allRooms', 
+        io.emit('allOpenRooms', 
             {
                 // room: user.rooms,
-                allRooms: getAllRooms()
+                allOpenRooms: getAllOpenRooms()
             }
         )
 
-    //     io.emit('allClosedRooms', 
-    //     {
-    //         allClosedRooms: getAllClosedRooms()
-    //     }
-    // )
+        io.emit('allClosedRooms', 
+        {
+            allClosedRooms: getAllClosedRooms()
+        }
+    )
             
             callback()
         }) 
@@ -86,8 +86,10 @@ io.on('connection', (socket) => {
 
     //disconnect will run if user leaves room /if we have a disconnect from the client side
     socket.on('disconnect', () => {
+        socket.leaveAll();
         const user = removeUser(socket.id);
-    
+        console.log("disconnected ");
+        
         if(user) {
           io.to(user.room).emit(
               'message', 
@@ -104,14 +106,27 @@ io.on('connection', (socket) => {
                 }
             );
         }
-        socket.on('disconnect', () => {
-            //Broadcast all rooms to all clients
-            io.emit('roomsWriten', getAllRooms)
-        })
+
+        //Broadcast all rooms to all clients
+        io.emit('allOpenRooms', 
+        {
+            // room: user.rooms,
+            allOpenRooms: getAllOpenRooms()
+        }
+    )
+
+    io.emit('allClosedRooms', 
+    {
+        // room: user.rooms,
+        allClosedRooms: getAllClosedRooms()
+    }
+)
+        
       })
 })
 
-function getAllRooms() {
+function getAllOpenRooms()
+ {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
    const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
@@ -121,9 +136,9 @@ function getAllRooms() {
     // console.log(io.sockets.socket)
 }
 
-// function getAllClosedRooms(){
-//     console.log(getAllClosedRooms())
-// }
+function getAllClosedRooms(){
+ console.log('hejhej')
+}
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
