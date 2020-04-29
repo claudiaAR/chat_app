@@ -5,7 +5,8 @@ import io from 'socket.io-client'
 import InfoBar from '../InfoBar/InfoBar'
 import Input from '../Input/Input'
 import Messages from '../Messages/Messages'
-import TextContainer from '../TextContainer/TextContainer'
+import SideBar from '../SideBar/SideBar'
+
 
 import './Chat.css'
 
@@ -25,6 +26,7 @@ const Chat = ({ location }) => {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
+    const [allRooms, setAllRooms] = useState([])
     const ENDPOINT = 'localhost:5000'
     
      //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
@@ -52,12 +54,16 @@ const Chat = ({ location }) => {
             //this is adding all messages to our messages array
             setMessages([...messages, message])
         })
-
-        socket.on("roomData", ({ users }) => {
-            setUsers(users);
-        });
-
         
+        socket.on("usersInRoom", ({ users }) => {
+            setUsers(users);
+          });
+          
+        //connects with emit on server side 
+        // io.emit('allRooms',{ allRooms: getAllRooms() })
+        socket.on("allRooms", ({ allRooms }) => {
+              setAllRooms(allRooms)
+          })
     }, [messages])
 
 
@@ -71,6 +77,10 @@ const Chat = ({ location }) => {
         }
     }
 
+    // const onRoomsReceived =(rooms) => {
+    //     console.log(rooms)
+    // }
+
 
     console.log(message, messages)
 
@@ -82,7 +92,7 @@ const Chat = ({ location }) => {
                 <Messages messages={messages} name={name} />
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
-            <TextContainer users={users}/>
+            <SideBar users={users} room={room} allRooms={allRooms}/>
         </div>
 
     )
