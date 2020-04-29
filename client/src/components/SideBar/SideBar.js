@@ -2,24 +2,26 @@ import React from 'react';
 import './SideBar.css';
 
 {/*  allClosedRooms  */}
-const SideBar = ({ users, room, allRooms }) => { 
+const SideBar = ({ users, rooms, allRooms }) => { 
 
  
   return (
   
   <div className="sidebarContainer">
 
-  <div>
-    <h1>Open rooms:</h1>
+
     {
-      room
+      allRooms
       ? (
         <div>
+        <h4>Open rooms:</h4>
           <div className="activeContainer">
             <div>
               {allRooms.map(({ room }) => (
+              //  <p key={room} className="activeItem">
+               // {room} 
                 <p key={allRooms} className="activeItem">
-                {allRooms}
+                {allRooms} 
               </p>))}
             </div>
           </div>
@@ -27,9 +29,10 @@ const SideBar = ({ users, room, allRooms }) => {
       )
       : null 
     }
-    </div>
+  
 
-    <h1>Private rooms:</h1>
+
+    <h4>Private rooms:</h4>
      {/*{
       allClosedRooms
       ? (
@@ -46,26 +49,27 @@ const SideBar = ({ users, room, allRooms }) => {
       )
       : null } */}
 
-
+   
     {
       users
       ? (
         <div>
-          <h1>People currently chatting:</h1>
           <div className="activeContainer">
-            <h2>
+           <h4>People in room:</h4>
+            <h5>
               {users.map(({ name }) => (
               <div key={name} className="activeItem">
                 {name}
               </div>))}
-            </h2>
+            </h5>
           </div>
         </div>
       )
       : null 
       }
 
-  </div>);
+  </div>
+  );
 };
 
 export default SideBar;

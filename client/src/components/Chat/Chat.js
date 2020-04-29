@@ -93,14 +93,16 @@ const Chat = ({ location }) => {
 
     // TASK: display the people who is online right now
     return(
+   
         <div className="outerContainer">
-            <SideBar users={users} room={room} allRooms={allRooms} />  {/* allClosedRooms={allClosedRooms} */}
+        <SideBar users={users} room={room} allRooms={allRooms} />  {/* allClosedRooms={allClosedRooms} */}
             <div className="container">
             <InfoBar room={room}/>
             <Messages messages={messages} name={name}/>
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
         </div>
+      
         
     )
 }
