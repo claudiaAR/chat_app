@@ -33,13 +33,13 @@ const Chat = ({ location }) => {
     
      //We gets a URL back based on the value from name and room, store it in socket and connect it to the server.
     useEffect(() => {
-        const { name, room } = queryString.parse(location.search)
+        const { name, room, password } = queryString.parse(location.search)
         
         socket = io(ENDPOINT)
 
         setName(name)
         setRoom(room)
-        // setPassword(password)
+        setPassword(password)
 
         // Validation, if  name is taken or name and room are missing
         socket.emit('join', { name, room, password }, (error) => {
