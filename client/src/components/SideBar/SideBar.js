@@ -13,14 +13,12 @@ const SideBar = ({ users, allOpenRooms, allClosedRooms }) => {
         <div>
         <h4>Open rooms:</h4>
           <div className="activeContainer">
-            <h5>
+            <div>
               {allOpenRooms.map(( room , index) => (
-              //  <p key={room} className="activeItem">
-               // {room} 
                 <p key={index} className="activeItem">
                 {room} 
               </p>))}
-            </h5>
+            </div>
           </div>
         </div>
       )
@@ -51,14 +49,14 @@ const SideBar = ({ users, allOpenRooms, allClosedRooms }) => {
       users
       ? (
         <div>
-          <div className="activeContainer">
            <h4>People in room:</h4>
-            <h5>
+          <div className="activeContainer">
+            <div>
               {users.map(( { name } , index) => (
-              <div key={index} className="activeItem">
+              <p key={index} className="activeItem">
                 {name}
-              </div>))}
-            </h5>
+              </p>))}
+            </div>
           </div>
         </div>
       )

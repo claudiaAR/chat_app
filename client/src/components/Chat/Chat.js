@@ -39,7 +39,7 @@ const Chat = ({ location }) => {
 
         setName(name)
         setRoom(room)
-        // setPassword(password)
+        setPassword(password)
 
         // Validation, if  name is taken or name and room are missing
         socket.emit('join', { name, room, password }, (error) => {
@@ -85,10 +85,6 @@ const Chat = ({ location }) => {
             
         }
     }
-
-    // const onRoomsReceived =(rooms) => {
-    //     console.log(rooms)
-    // }
 
     console.log(users)
 

@@ -8,6 +8,7 @@ const addUser = ({ id, name, room, password}) => {
     // This makes the string all lowercase and no whitespaces
     name = name.trim().toLowerCase()
     room = room.trim().toLowerCase()
+    password = password
     
     // Checking if the username is avalible.
     const existingUser = users.find((user) => user.room === room && user.name === name )
@@ -44,6 +45,17 @@ const removeUser = (id) => {
         return users.splice(index, 1)[0]
     }
 } 
+// let passwords = user.password
+// const addPassword = (password) => {
+//     // Finding the specific id of user in array.
+//     const index = passwords.findIndex((passwords) => passwords === room.password)
+
+//     // If the user exist, remove the user from array.
+//     if (index === password) {
+//         return passwords.push(index, 1)[0]
+//     }
+//     console.log(addPassword)
+// } 
 
 
 
