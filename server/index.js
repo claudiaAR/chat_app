@@ -141,7 +141,7 @@ function getAllClosedRooms(user){
     const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
     const socketsIds = Object.keys(io.sockets.sockets)
     const allrooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
-    
+     let closedrooms = allrooms
     console.log(allrooms)
     console.log('hejhej', roomsAndSocketsIds)
    // console.log("rooms: ",closedrooms);
