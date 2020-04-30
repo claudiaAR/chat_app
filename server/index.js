@@ -129,7 +129,7 @@ function getAllOpenRooms()
  {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
+   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId) && (password => password.value === ""))
    
    console.log(rooms)
    return rooms
