@@ -23,7 +23,7 @@ let socket;
 const Chat = ({ location }) => {
     const [name, setName] = useState('')
     const [room, setRoom] = useState('')
-    const [password, setPassword] = useState('')
+
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
@@ -39,10 +39,10 @@ const Chat = ({ location }) => {
 
         setName(name)
         setRoom(room)
-        setPassword(password)
-
+       
+       
         // Validation, if  name is taken or name and room are missing
-        socket.emit('join', { name, room, password }, (error) => {
+        socket.emit('join', { name, room, password  }, (error) => {
             if(error) {
               alert(error);
             }
@@ -92,7 +92,7 @@ const Chat = ({ location }) => {
     return(
    
         <div className="outerContainer">
-        <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
+            <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
             <div className="container">
             <InfoBar room={room}/>
             <Messages messages={messages} name={name}/>
