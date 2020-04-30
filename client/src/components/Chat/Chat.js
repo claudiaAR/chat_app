@@ -86,10 +86,6 @@ const Chat = ({ location }) => {
         }
     }
 
-    // const onRoomsReceived =(rooms) => {
-    //     console.log(rooms)
-    // }
-
     console.log(users)
 
     

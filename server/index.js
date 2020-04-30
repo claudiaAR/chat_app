@@ -52,7 +52,8 @@ io.on('connection', (socket) => {
             'usersInRoom', 
             { 
                 room: user.room, 
-                users: getUsersInRoom(user.room) 
+                users: getUsersInRoom(user.room) ,
+                password: user.password
             }
         );
 
@@ -109,18 +110,18 @@ io.on('connection', (socket) => {
 
         //Broadcast all rooms to all clients
         io.emit('allOpenRooms', 
-        {
-            // room: user.rooms,
-            allOpenRooms: getAllOpenRooms()
-        }
-    )
+            {
+                // room: user.rooms,
+                allOpenRooms: getAllOpenRooms()
+            }
+        )
 
-    io.emit('allClosedRooms', 
-    {
-        // room: user.rooms,
-        allClosedRooms: getAllClosedRooms()
-    }
-)
+        io.emit('allClosedRooms', 
+            {
+                // room: user.rooms,
+                allClosedRooms: getAllClosedRooms(user)
+            }
+        )
         
       })
 })
@@ -129,15 +130,24 @@ function getAllOpenRooms()
  {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId) && (password => password.value === ""))
+   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId) && (password => password.value === !""))
    
-   console.log(rooms)
+   console.log(rooms, 'hola')
    return rooms
-    // console.log(io.sockets.socket)
 }
 
 function getAllClosedRooms(){
- console.log('hejhej')
+    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
+    const socketsIds = Object.keys(io.sockets.sockets)
+    const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
+    
+    
+   
+   
+    console.log(allrooms)
+    console.log('hejhej', roomsAndSocketsIds)
+   // console.log("rooms: ",closedrooms);
+ return allrooms
 }
 
 
