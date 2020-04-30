@@ -130,16 +130,16 @@ function getAllOpenRooms()
  {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId || password === ""))
+   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId) && (password => password.value === !""))
    
+   console.log(rooms, 'hola')
    return rooms
-    // console.log(io.sockets.socket)
 }
 
 function getAllClosedRooms(){
     const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
     const socketsIds = Object.keys(io.sockets.sockets)
-    const allrooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId || password))
+    const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
     
     
    
