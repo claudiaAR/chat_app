@@ -1,18 +1,11 @@
 .sidebarContainer {
-    /* display: flex;
-    flex-direction: column;
-    margin-left: 100px; */
     display: flex;
     flex-direction: column;
     color: white;
-    padding: 1rem; 
+    padding: 0 1rem; 
     width: 20rem;
     height: 60%;
     margin-left: 10px;
-    /* width: 20rem;
-    justify-content: space-between;
-    background: rgb(21, 21, 22);
-   */
   }
 
   h4{

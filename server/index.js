@@ -130,18 +130,20 @@ function getAllOpenRooms()
  {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
-   
+   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId || password === ""))
    
    return rooms
     // console.log(io.sockets.socket)
 }
 
-function getAllClosedRooms(user){
+function getAllClosedRooms(){
     const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
     const socketsIds = Object.keys(io.sockets.sockets)
-    const allrooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId))
-     let closedrooms = allrooms
+    const allrooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId || password))
+    
+    
+   
+   
     console.log(allrooms)
     console.log('hejhej', roomsAndSocketsIds)
    // console.log("rooms: ",closedrooms);
