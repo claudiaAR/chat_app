@@ -3,7 +3,7 @@ const express = require('express')
 const socketio = require('socket.io')
 const cors = require('cors')
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
+const { addUser, removeUser, getUser, getUsersInRoom, getAllOpenRooms, getAllClosedRooms } = require('./users.js')
 
 
 const PORT = process.env.PORT || 5000
@@ -18,18 +18,16 @@ const io = socketio(server)
 app.use(cors())
 app.use(router)
 
-let roomsAndpassword = [
-    {
-        roomId: roomId, 
-        password: password
-    }
-]
+
 
 //socket is a connection who will run when we have a connection from our client instance
 io.on('connection', (socket) => {
    
     //Function of the instance 'join', has a callback  with a error handling. 
     socket.on('join', ({ name, room, password }, callback) => {
+        socket.leaveAll(); // leave socket.io room
+     
+
         const { error, user } = addUser({ id: socket.id, name, room, password})
         
         // Validation, if  name is taken or name and room are missing
@@ -86,6 +84,7 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id)
+        if (!user) return;
 
         io.to(user.room).emit('message', { user: user.name, text: message})
         //this callback is connecting with the frontend
@@ -133,30 +132,30 @@ io.on('connection', (socket) => {
       })
 })
 
-function getAllOpenRooms()
- {
-   const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
-   const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => {
-       console.log(password)
-       !socketsIds.includes(roomOrId) && ((password) => {password.value === !""})
-    })
+// function getAllOpenRooms()
+//  {
+//    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
+//    const socketsIds = Object.keys(io.sockets.sockets)
+//    const rooms = roomsAndSocketsIds.filter(roomOrId => {
+//        console.log(password)
+//        !socketsIds.includes(roomOrId) && ((password) => {password.value === !""})
+//     })
    
-   console.log(rooms, 'hola')
+//    console.log(rooms, 'hola')
    
-   return rooms
-}
+//    return rooms
+// }
 
-function getAllClosedRooms(){
-    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
-    const socketsIds = Object.keys(io.sockets.sockets)
-    const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
+// function getAllClosedRooms(){
+//     const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
+//     const socketsIds = Object.keys(io.sockets.sockets)
+//     const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
     
-    console.log(allrooms)
-    console.log('hejhej', roomsAndSocketsIds)
-   // console.log("rooms: ",closedrooms);
- return allrooms
-}
+//     console.log(allrooms)
+//     console.log('hejhej', roomsAndSocketsIds)
+//    // console.log("rooms: ",closedrooms);
+//  return allrooms
+// }
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
