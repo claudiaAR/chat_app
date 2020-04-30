@@ -2,9 +2,7 @@
 
 const users = []
 
-let roomsAndPassword =  {
-   
-}
+let roomsAndPassword =  {}
 
 // Add user to the users array.
 const addUser = ({ id, name, room, password }) => {
