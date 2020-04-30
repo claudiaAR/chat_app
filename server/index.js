@@ -18,6 +18,13 @@ const io = socketio(server)
 app.use(cors())
 app.use(router)
 
+let roomsAndpassword = [
+    {
+        roomId: roomId, 
+        password: password
+    }
+]
+
 //socket is a connection who will run when we have a connection from our client instance
 io.on('connection', (socket) => {
    
@@ -130,9 +137,13 @@ function getAllOpenRooms()
  {
    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
    const socketsIds = Object.keys(io.sockets.sockets)
-   const rooms = roomsAndSocketsIds.filter(roomOrId => !socketsIds.includes(roomOrId) && (password => password.value === !""))
+   const rooms = roomsAndSocketsIds.filter(roomOrId => {
+       console.log(password)
+       !socketsIds.includes(roomOrId) && ((password) => {password.value === !""})
+    })
    
    console.log(rooms, 'hola')
+   
    return rooms
 }
 
@@ -141,9 +152,6 @@ function getAllClosedRooms(){
     const socketsIds = Object.keys(io.sockets.sockets)
     const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
     
-    
-   
-   
     console.log(allrooms)
     console.log('hejhej', roomsAndSocketsIds)
    // console.log("rooms: ",closedrooms);

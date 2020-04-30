@@ -92,7 +92,7 @@ const Chat = ({ location }) => {
     return(
    
         <div className="outerContainer">
-        <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
+            <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
             <div className="container">
             <InfoBar room={room}/>
             <Messages messages={messages} name={name}/>
