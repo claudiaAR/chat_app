@@ -1,5 +1,7 @@
 # CHAT APP
 
+## https://github.com/claudiaAR/chat_app
+
 ## A simple chat app made with node.js, express, socket.io and create react app(react.js). 
 
 ### The app we built is both backend and frontend. 
