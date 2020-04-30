@@ -94,7 +94,11 @@ io.on('connection', (socket) => {
     //disconnect will run if user leaves room /if we have a disconnect from the client side
     socket.on('disconnect', () => {
         socket.leaveAll();
+
         const user = removeUser(socket.id);
+        //TODO!!!!!! begins
+        console.log("adapter", io.sockets.adapter.rooms)
+        //TODO!!!!!! ends
         console.log("disconnected ");
         
         if(user) {
