@@ -96,12 +96,15 @@ io.on('connection', (socket) => {
 
         const user = removeUser(socket.id);
         //TODO!!!!!! begins
-        console.log("adapter", io.sockets.adapter.rooms)
+        console.log("adapter", Object.keys(io.sockets.adapter.rooms))
         
 
+
         //TODO!!!!!! ends
-        console.log("disconnected ");
-        
+        //console.log("disconnected ");
+        console.log("user", user)
+        //console.log(io.sockets.adapter)
+        //console.log(io.sockets)
         if(user) {
           io.to(user.room).emit(
               'message', 

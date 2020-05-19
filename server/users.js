@@ -40,7 +40,7 @@ const addUser = ({ id, name, room, password }) => {
         return { error: "Wrong password"};
     }
 
-    console.log("roooms", roomsAndPassword);
+    //console.log("roooms", roomsAndPassword);
     
     return { user }
     
@@ -56,39 +56,34 @@ const removeUser = (id) => {
 
     //TODO!!!!!!!!!!!! begins
     const user = users[index]
+    const usersInroom = getUsersInRoom(user.room)
+    // console.log("usersInroom", usersInroom.length)
+    // console.log("roomsAnd:", Object.keys(roomsAndPassword))
+        if (usersInroom.length == 1) {
+            delete roomsAndPassword[user.room]
+            //    let indexOfRoom = Object.keys(roomsAndPassword).indexOf(user.room)
+            //     Object.keys(roomsAndPassword).splice(indexOfRoom, 1)
+            //     console.log("purjo", Object.keys(roomsAndPassword))
+            //     console.log("lök", indexOfRoom)
+            //     console.log("glass", usersInroom.length)
 
-    let removeRoom = false
-
-    users.forEach((userToCompare) => {
-        if(userToCompare.room == user.room) {
-            removeRoom = true
         }
-    })
-
-    if(removeRoom) {
-        // Ta bort rummet här, kanske med en splice?
-            // return user.splice()[0]
-       
-    } 
-     //TODO!!!!!!!!!!!! ends
-
-
-
+    
+            // Object.keys(lunch).forEach(function (item) {
+            //     console.log(item); // key
+            //     console.log(lunch[item]); // value
+            // });
+            
+    
     // If the user exist, remove the user from array.
-    if (index !== -1) {
-        return users.splice(index, 1)[0]
+        if (index !== -1) {
+            return users.splice(index, 1)[0]
+        }
     }
 
 
-     
-} 
-    //TODO!!!!!!!!!!!! begins
-    //checkEmptyRoom(id, room)
-const checkEmptyRoom = (user, room) => {
-    console.log(user, room)
-}
- //TODO!!!!!!!!!!!! ends
 
+     
 // let passwords = user.password
 // const addPassword = (password) => {
 //     // Finding the specific id of user in array.
