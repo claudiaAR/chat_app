@@ -73,12 +73,11 @@ io.on('connection', (socket) => {
         )
 
         io.emit('allClosedRooms', 
-        {
-            allClosedRooms: getAllClosedRooms()
-        }
-    )
-            
-            callback()
+            {
+                allClosedRooms: getAllClosedRooms()
+            }
+        )
+        callback()
         }) 
     })
 
@@ -94,7 +93,13 @@ io.on('connection', (socket) => {
     //disconnect will run if user leaves room /if we have a disconnect from the client side
     socket.on('disconnect', () => {
         socket.leaveAll();
+
         const user = removeUser(socket.id);
+        //TODO!!!!!! begins
+        console.log("adapter", io.sockets.adapter.rooms)
+        
+
+        //TODO!!!!!! ends
         console.log("disconnected ");
         
         if(user) {
@@ -132,30 +137,6 @@ io.on('connection', (socket) => {
       })
 })
 
-// function getAllOpenRooms()
-//  {
-//    const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
-//    const socketsIds = Object.keys(io.sockets.sockets)
-//    const rooms = roomsAndSocketsIds.filter(roomOrId => {
-//        console.log(password)
-//        !socketsIds.includes(roomOrId) && ((password) => {password.value === !""})
-//     })
-   
-//    console.log(rooms, 'hola')
-   
-//    return rooms
-// }
-
-// function getAllClosedRooms(){
-//     const roomsAndSocketsIds = Object.keys(io.sockets.adapter.rooms)
-//     const socketsIds = Object.keys(io.sockets.sockets)
-//     const allrooms = roomsAndSocketsIds.filter(password => !socketsIds.includes(password.value !== ""))
-    
-//     console.log(allrooms)
-//     console.log('hejhej', roomsAndSocketsIds)
-//    // console.log("rooms: ",closedrooms);
-//  return allrooms
-// }
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`))

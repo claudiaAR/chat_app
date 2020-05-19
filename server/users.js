@@ -2,9 +2,7 @@
 
 const users = []
 
-let roomsAndPassword =  {
-      
-}
+let roomsAndPassword =  {}
 
 // Add user to the users array.
 const addUser = ({ id, name, room, password }) => {
@@ -51,14 +49,46 @@ const addUser = ({ id, name, room, password }) => {
 
 // Remove user from the users array.
 const removeUser = (id) => {
+
     // Finding the specific id of user in array.
     const index = users.findIndex((user) => user.id === id)
+
+
+    //TODO!!!!!!!!!!!! begins
+    const user = users[index]
+
+    let removeRoom = false
+
+    users.forEach((userToCompare) => {
+        if(userToCompare.room == user.room) {
+            removeRoom = true
+        }
+    })
+
+    if(removeRoom) {
+        // Ta bort rummet här, kanske med en splice?
+            // return user.splice()[0]
+       
+    } 
+     //TODO!!!!!!!!!!!! ends
+
+
 
     // If the user exist, remove the user from array.
     if (index !== -1) {
         return users.splice(index, 1)[0]
     }
+
+
+     
 } 
+    //TODO!!!!!!!!!!!! begins
+    //checkEmptyRoom(id, room)
+const checkEmptyRoom = (user, room) => {
+    console.log(user, room)
+}
+ //TODO!!!!!!!!!!!! ends
+
 // let passwords = user.password
 // const addPassword = (password) => {
 //     // Finding the specific id of user in array.
