@@ -99,6 +99,7 @@ io.on('connection', (socket) => {
         console.log("adapter", io.sockets.adapter.rooms)
         
 
+        
         //TODO!!!!!! ends
         console.log("disconnected ");
         
