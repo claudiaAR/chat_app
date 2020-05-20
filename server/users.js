@@ -56,11 +56,15 @@ const removeUser = (id) => {
 
     //TODO!!!!!!!!!!!! begins
     const user = users[index]
+    if(!user){
+        return 
+    }
     const usersInroom = getUsersInRoom(user.room)
     // console.log("usersInroom", usersInroom.length)
     // console.log("roomsAnd:", Object.keys(roomsAndPassword))
         if (usersInroom.length == 1) {
             delete roomsAndPassword[user.room]
+            
             //    let indexOfRoom = Object.keys(roomsAndPassword).indexOf(user.room)
             //     Object.keys(roomsAndPassword).splice(indexOfRoom, 1)
             //     console.log("purjo", Object.keys(roomsAndPassword))
