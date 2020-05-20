@@ -55,7 +55,7 @@ const Chat = ({ location }) => {
     useEffect(() => {
         socket.on('message', (message) => {
             //this is adding all messages to our messages array
-            setMessages([...messages, message])
+            setMessages(prev => ([...prev, message]))
         })
         
         socket.on("usersInRoom", ({ users }) => {
@@ -67,13 +67,14 @@ const Chat = ({ location }) => {
         // io.emit('allRooms',{ allRooms: getAllRooms() })
         socket.on("allOpenRooms", ({ allOpenRooms }) => {
               setAllOpenRooms(allOpenRooms)
+              console.log("******************",allOpenRooms)
           })
         
         socket.on("allClosedRooms", ({ allClosedRooms }) => {
             setAllClosedRooms(allClosedRooms)
         })
  
-    }, [messages])
+    }, [])
 
 
     //Function for sending messages, 'sendMessage' is a string that the server will recognise.
@@ -85,7 +86,10 @@ const Chat = ({ location }) => {
             
         }
     }
-
+    const leaveRoom = () => {
+        socket.emit("leaveRoom")
+        console.log("try to disconnect************")
+    }
     console.log(users)
 
     
@@ -94,7 +98,7 @@ const Chat = ({ location }) => {
         <div className="outerContainer">
             <SideBar users={users} room={room} allOpenRooms={allOpenRooms} allClosedRooms={allClosedRooms} /> 
             <div className="container">
-            <InfoBar room={room}/>
+            <InfoBar room={room} leaveRoom={leaveRoom}/>
             <Messages messages={messages} name={name}/>
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>

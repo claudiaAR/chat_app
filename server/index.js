@@ -91,12 +91,60 @@ io.on('connection', (socket) => {
     })
 
     //disconnect will run if user leaves room /if we have a disconnect from the client side
-    socket.on('disconnect', () => {
-        socket.leaveAll();
-
+    socket.on('leaveRoom', () => {
+        
         const user = removeUser(socket.id);
+        socket.leaveAll();
         //TODO!!!!!! begins
-        console.log("adapter", Object.keys(io.sockets.adapter.rooms))
+        console.log("*****************adapter", Object.keys(io.sockets.adapter.rooms))
+        
+
+
+        //TODO!!!!!! ends
+        //console.log("disconnected ");
+        console.log("user", user)
+        //console.log(io.sockets.adapter)
+        //console.log(io.sockets)
+        if(user) {
+          io.to(user.room).emit(
+              'message', 
+                { 
+                  user: 'Admin', 
+                  text: `${user.name} has left.` 
+                }
+            );
+          io.to(user.room).emit(
+              'roomData',  
+                { 
+                  room: user.room, 
+                  users: getUsersInRoom(user.room)
+                }
+            );
+        }
+
+        //Broadcast all rooms to all clients
+        io.emit('allOpenRooms', 
+            {
+                // room: user.rooms,
+                allOpenRooms: getAllOpenRooms()
+            }
+        )
+
+        io.emit('allClosedRooms', 
+            {
+                // room: user.rooms,
+                allClosedRooms: getAllClosedRooms(user)
+            }
+        )
+        
+      })
+
+      socket.on('disconnect', () => {
+        
+        const user = removeUser(socket.id);
+        socket.leaveAll();
+        //TODO!!!!!! begins
+        console.log("*****************adapter", Object.keys(io.sockets.adapter.rooms))
         
 
 
@@ -139,6 +187,7 @@ io.on('connection', (socket) => {
         
       })
 })
+
 
 
 
