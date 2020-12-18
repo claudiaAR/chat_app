@@ -16,10 +16,16 @@ const addUser = ({ id, name, room, password }) => {
     const existingUser = users.find((user) => user.room === room && user.name === name )
 
      // Validation of name and room inputs.
-     if(!name || !room) return { error: 'Username and room are required.' };
+     if(!name || !room) 
+        return { 
+            error: 'Username and room are required.'
+        };
 
      // If the user try to log in with exicting name this will be trown out
-     if (existingUser) return { error: 'Username is taken' }
+     if (existingUser) 
+        return { 
+            error: 'Username is taken' 
+        }
  
 
         // TODO leave remove user if already in a room
